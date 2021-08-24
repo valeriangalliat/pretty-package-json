@@ -57,6 +57,10 @@ will be added at the end in the same order they were found.
 
 Empty arrays and objects are removed.
 
+If the `homepage` and `bugs` match the one that can be derived from
+`repository` by [hosted-git-info](https://www.npmjs.com/package/hosted-git-info),
+the keys will be removed.
+
 ### `author` and `contributors`
 
 Converted to the short form `name <email> (url)` unless `peopleFormat`

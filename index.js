@@ -36,6 +36,17 @@ function alphabeticalSortObject (object) {
 }
 
 const rules = {
+  bugs (bugs) {
+    if (typeof bugs === 'string') {
+      return bugs
+    }
+
+    if (Object.keys(bugs).length === 1 && ('url' in bugs)) {
+      return bugs.url
+    }
+
+    return sortObject(['url', 'email'], bugs)
+  },
   author (author, opts) {
     if (typeof author === 'string') {
       author = parseAuthor(author)
@@ -62,17 +73,30 @@ const rules = {
   directories (directories) {
     return sortObject(['bin', 'doc', 'lib', 'man'], directories)
   },
-  repository (repository) {
+  repository (repository, opts, pkg) {
     if (typeof repository === 'string') {
       const info = hostedGitInfo.fromUrl(repository)
-      return info ? info.shortcut().replace(/^github:/, '') : repository
+
+      if (!info) {
+        return repository
+      }
+
+      if (('homepage' in pkg) && (info.docs() === pkg.homepage || info.browse() === pkg.homepage)) {
+        delete pkg.homepage
+      }
+
+      if (('bugs' in pkg) && (info.bugs() === (pkg.bugs.url || pkg.bugs))) {
+        delete pkg.bugs
+      }
+
+      return info.shortcut().replace(/^github:/, '')
     }
 
     if (repository.type !== 'git' || ('directory' in repository)) {
       return sortObject(['type', 'url', 'directory'], repository)
     }
 
-    return rules.repository(repository.url)
+    return rules.repository(repository.url, opts, pkg)
   },
   scripts (scripts, opts) {
     return opts.sortScripts ? alphabeticalSortObject(scripts) : scripts

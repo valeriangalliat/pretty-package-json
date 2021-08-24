@@ -24,6 +24,10 @@ test({
       },
       'John Doe <john@doe.com> (https://john.doe.com/)'
     ],
+    bugs: {
+      email: 'someone@example.com',
+      url: 'https://www.example.com/bugs'
+    },
     devDependencies: {
       something: '^3.0.0',
       more: '^1.0.0'
@@ -61,6 +65,10 @@ test({
     name: 'foo',
     version: '0.2.0',
     description: 'Some description.',
+    bugs: {
+      url: 'https://www.example.com/bugs',
+      email: 'someone@example.com'
+    },
     license: 'Unlicense',
     author: 'Someone <someone@example.com> (https://www.example.com)',
     contributors: [
@@ -165,4 +173,40 @@ test({
     contributors: []
   },
   expected: {}
+})
+
+test({
+  input: {
+    bugs: {
+      url: 'https://www.example.com/issues'
+    },
+    repository: 'foo/bar'
+  },
+  expected: {
+    bugs: 'https://www.example.com/issues',
+    repository: 'foo/bar'
+  }
+})
+
+test({
+  input: {
+    homepage: 'https://github.com/foo/bar',
+    bugs: {
+      url: 'https://github.com/foo/bar/issues'
+    },
+    repository: 'foo/bar'
+  },
+  expected: {
+    repository: 'foo/bar'
+  }
+})
+
+test({
+  input: {
+    homepage: 'https://github.com/foo/bar#readme',
+    repository: 'foo/bar'
+  },
+  expected: {
+    repository: 'foo/bar'
+  }
 })
