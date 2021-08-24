@@ -1,0 +1,8 @@
+#!/usr/bin/env node
+
+const fs = require('fs')
+const prettyPackageJson = require('.')
+
+const input = JSON.parse(fs.readFileSync('/dev/stdin', 'utf8'))
+
+console.log(JSON.stringify(prettyPackageJson(input), null, 2))
