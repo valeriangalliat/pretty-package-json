@@ -14,11 +14,20 @@ This tools allows me to stop doing that manually. I just
 
 ## Usage
 
-Format `package.json` according to [rules](#rules) and print it to
-stdout.
+Format given file, `stdin` or `package.json` otherwise according to
+[rules](#rules), and print it to `stdout`:
 
 ```sh
-pretty-package-json < package.json
+pretty-package-json whatever.json
+pretty-package-json < whatever.json
+pretty-package-json
+```
+
+Format given file or `package.json` otherwise, and overwrite it:
+
+```sh
+pretty-package-json --write whatever.json
+pretty-package-json --write
 ```
 
 ## Rules
