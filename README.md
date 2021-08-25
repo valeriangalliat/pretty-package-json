@@ -12,6 +12,15 @@ and more.
 This tools allows me to stop doing that manually. I just
 `%!pretty-package-json` from Vim and call it a day.
 
+## Usage
+
+Format `package.json` according to [rules](#rules) and print it to
+stdout.
+
+```sh
+pretty-package-json < package.json
+```
+
 ## Rules
 
 The top-level keys are sorted as defined in the [documentation](https://docs.npmjs.com/cli/v7/configuring-npm/package-json):
