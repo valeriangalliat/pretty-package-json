@@ -1,6 +1,6 @@
 {
   "name": "pretty-package-json",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Prettier for `package.json`.",
   "license": "Unlicense",
   "author": "Val (https://val.codejam.info)",
