@@ -210,3 +210,18 @@ test({
     repository: 'foo/bar'
   }
 })
+
+test({
+  input: {
+    name: 'foo',
+    bin: {
+      bar: 'bar'
+    }
+  },
+  expected: {
+    name: 'foo',
+    bin: {
+      bar: 'bar'
+    }
+  }
+})
