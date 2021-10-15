@@ -43,6 +43,8 @@ function bin (bin, opts, pkg) {
   if (pkg.name in bin) {
     return bin[pkg.name]
   }
+
+  return bin
 }
 
 function directories (directories) {
