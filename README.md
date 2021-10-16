@@ -1,4 +1,4 @@
-# pretty-package-json
+# pretty-package-json [![npm version](http://img.shields.io/npm/v/pretty-package-json.svg?style=flat-square)](https://www.npmjs.org/package/pretty-package-json)
 
 > Prettier for `package.json`.
 
