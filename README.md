@@ -36,6 +36,9 @@ pretty-package-json --write
 
 The top-level keys are sorted as defined in the [documentation].
 
+<details>
+  <summary>Reveal top-level keys</summary>
+
 1. `name`
 1. `version`
 1. `description`
@@ -69,27 +72,49 @@ The top-level keys are sorted as defined in the [documentation].
 1. `publishConfig`
 1. `workspaces`
 
+</details>
+
 Those are [automatically fetched](Makefile) from the documentation. But
-there's more rules that need to be defined explicitly, also based on the
-current documentation (for the nested objects keys).
+for nested object keys, there's extra rules that need to be
+[defined manually](rules.js) (see below).
 
-Finally we support extra keys that are not part of the npm documentation
-but are commonly used in the ecosystem, like `type`, `module`,
-`exports`, and `types`. To see the non-npm top-level keys that were
-manually added, run:
+We also support [extra keys](#extra-keys) that are not part of the npm
+documentation but are commonly used in the ecosystem, like `type`,
+`module`, `exports`, and `types`.
 
-```sh
-git diff --no-index npm-keys.json keys.json
-```
+### Sorting and unknown keys
 
 Anywhere we're sorting according to a predefined order, unknown keys
 will be added at the end in the same order they were found.
 
+### Empty structures
+
 Empty arrays and objects are removed.
 
+### Redundant `homepage` and `bugs`
+
 If the `homepage` and `bugs` match the one that can be derived from
-`repository` by [hosted-git-info](https://www.npmjs.com/package/hosted-git-info),
+the `repository` by [hosted-git-info](https://www.npmjs.com/package/hosted-git-info),
 the keys will be removed.
+
+For example:
+
+```json
+{
+  "homepage": "https://github.com/valeriangalliat/pretty-package-json",
+  "bugs": "https://github.com/valeriangalliat/pretty-package-json/issues",
+  "repository": "valeriangalliat/pretty-package-json"
+}
+```
+
+Here the `homepage` and `bugs` are redundant and it will be rewritten
+as:
+
+```json
+{
+  "repository": "valeriangalliat/pretty-package-json"
+}
+```
 
 ### `author` and `contributors`
 
@@ -134,3 +159,24 @@ objects.
 
 1. `node`
 1. `npm`
+
+### Extra keys
+
+* [`$schema`](https://json-schema.org/draft/2020-12/json-schema-core.html#keyword-schema):
+  for JSON Schema validation.
+* [`type`](https://nodejs.org/api/packages.html#type): Node.js input
+  type, e.g. `"type": "module"` or `"type": "commonjs"`.
+* [`module`](https://nodejs.org/api/packages.html#packages_dual_commonjs_es_module_packages):
+  Node.js legacy method that allowed to define the ES module entry
+  point, as opposed to CommonJS in `main`.
+* [`exports`](https://nodejs.org/api/packages.html#exports): Node.js
+  field allowing to define hybrid entry points.
+* [`types`](https://www.typescriptlang.org/docs/handbook/declaration-files/publishing.html):
+  TypeScript types.
+
+To confirm this list and see the non-npm top-level keys that were
+manually added, run:
+
+```sh
+git diff --no-index npm-keys.json keys.json
+```
