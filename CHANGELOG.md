@@ -6,6 +6,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 * Fetch new properties from npm v8 documentation.
+* Support JSON Schema `$schema` key.
 
 ## [0.4.0] - 2022-02-17
 * Support `type`, `module`, `exports` and `types`.
