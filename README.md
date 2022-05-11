@@ -5,9 +5,11 @@
 ## Overview
 
 I like my `package.json` files to be nearly organized, making sure that
-each property is in the same order as listed in the official [npm `package.json` documentation](https://docs.npmjs.com/cli/v7/configuring-npm/package-json),
+each property is in the same order as listed in the official [npm `package.json` documentation][documentation],
 including nested objects like `author`, `contributors`, `directories`
 and more.
+
+[documentation]: https://docs.npmjs.com/cli/v8/configuring-npm/package-json
 
 This tools allows me to stop doing that manually. I just
 `%!pretty-package-json` from Vim and call it a day.
@@ -32,7 +34,7 @@ pretty-package-json --write
 
 ## Rules
 
-The top-level keys are sorted as defined in the [documentation](https://docs.npmjs.com/cli/v7/configuring-npm/package-json):
+The top-level keys are sorted as defined in the [documentation].
 
 1. `name`
 1. `version`
@@ -59,6 +61,7 @@ The top-level keys are sorted as defined in the [documentation](https://docs.npm
 1. `peerDependenciesMeta`
 1. `bundledDependencies`
 1. `optionalDependencies`
+1. `overrides`
 1. `engines`
 1. `os`
 1. `cpu`
@@ -68,7 +71,16 @@ The top-level keys are sorted as defined in the [documentation](https://docs.npm
 
 Those are [automatically fetched](Makefile) from the documentation. But
 there's more rules that need to be defined explicitly, also based on the
-current documentation.
+current documentation (for the nested objects keys).
+
+Finally we support extra keys that are not part of the npm documentation
+but are commonly used in the ecosystem, like `type`, `module`,
+`exports`, and `types`. To see the non-npm top-level keys that were
+manually added, run:
+
+```sh
+git diff --no-index npm-keys.json keys.json
+```
 
 Anywhere we're sorting according to a predefined order, unknown keys
 will be added at the end in the same order they were found.
